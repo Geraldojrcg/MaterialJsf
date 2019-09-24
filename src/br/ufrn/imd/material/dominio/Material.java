@@ -2,16 +2,33 @@ package br.ufrn.imd.material.dominio;
 
 import java.util.Date;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+@Entity
 public class Material {
 	
+	@Id
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="SEQ_MATERIAL")
+	@SequenceGenerator(name="SEQ_MATERIAL", sequenceName="id_seq_material", allocationSize=1)
 	private int id;
 	
 	private String codigo;
 	
 	private String descricao;
 	
+	@Temporal(TemporalType.DATE)
 	private Date dataCadastro;
 	
+	@ManyToOne
+	@JoinColumn(name="id_usuario")
 	private Usuario usuarioCadastro;
 
 	public int getId() {
